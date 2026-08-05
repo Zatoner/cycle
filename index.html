@@ -4,12 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Belle-Ile Loop — 29 Aug to 6 Sep</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2314263F'/%3E%3Cpath d='M8 24C11 17 13 20 16 14S22 9 25 8' fill='none' stroke='%23F1F3EE' stroke-width='2.6' stroke-linecap='round'/%3E%3Ccircle cx='8' cy='24' r='4' fill='%231E7A46' stroke='%23F1F3EE' stroke-width='1.6'/%3E%3Ccircle cx='25' cy='8' r='4' fill='%23BE441D' stroke='%23F1F3EE' stroke-width='1.6'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
 :root{
   --ink:#14263F; --paper:#F1F3EE; --card:#FFFFFF; --slate:#5C6B7A;
   --line:#D8DCD2; --buoy:#BE441D; --starboard:#1E7A46; --chip:#E9ECE4; --live:#2563C9;
+  --ochre:#A8690E;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -18,11 +20,8 @@ body{background:var(--paper);color:var(--ink);
   padding-bottom:48px}
 .mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
 .wrap{max-width:640px;margin:0 auto;padding:0 16px}
-header{background:var(--ink);color:#F4F6F2;padding:26px 0 22px;
-  border-top:10px solid var(--ink);
-  background-image:repeating-linear-gradient(180deg,#F4F6F2 0 3px,var(--ink) 3px 10px);
-  background-size:100% 10px;background-repeat:repeat-x;background-position:top}
-header .wrap{padding-top:8px}
+header{background:var(--ink);color:#F4F6F2;padding:30px 0 24px}
+header .wrap{padding-top:0}
 .eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--slate)}
 header .eyebrow{color:#9FB0C4}
 h1{font-family:"Avenir Next Condensed","Arial Narrow","Helvetica Neue",sans-serif;
@@ -62,15 +61,20 @@ ol.tl li.done::before{background:var(--slate);border-color:var(--slate)}
 ol.tl li.next::before{background:var(--live);border-color:var(--live);
   box-shadow:0 0 0 3px rgba(37,99,201,.20)}
 ol.tl li.next{font-weight:600}
-.live{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:14px}
-.livebtn{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.30);color:#F4F6F2;
-  border-radius:4px;padding:6px 11px;font:600 13px/1.3 inherit;font-family:inherit;cursor:pointer}
-.livebtn:hover{background:rgba(255,255,255,.18)}
-.tag{border-radius:4px;padding:5px 10px;font-size:13px;font-weight:700}
+.live{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 14px}
+.live:empty{display:none}
+.livebtn{background:var(--ink);border:1px solid var(--ink);color:#F4F6F2;
+  border-radius:4px;padding:7px 12px;font:600 13px/1.3 inherit;font-family:inherit;cursor:pointer}
+.livebtn.ghost{background:none;color:var(--ink)}
+.livebtn:hover{opacity:.85}
+.tag{border-radius:4px;padding:6px 10px;font-size:13px;font-weight:700}
 .tag.ok,.tag.ahead{background:var(--starboard);color:#fff}
 .tag.behind{background:var(--buoy);color:#fff}
-.tag.off{background:rgba(255,255,255,.14);color:#F4F6F2}
-.livedet{font-size:13px;color:#C6D0DC}
+.tag.off{background:var(--chip);color:var(--ink)}
+.livedet{font-size:13px;color:var(--slate)}
+.chip.e-low{background:var(--starboard);color:#fff}
+.chip.e-mid{background:var(--ochre);color:#fff}
+.chip.e-high{background:var(--buoy);color:#fff}
 .card.here{border-color:var(--live);box-shadow:0 0 0 2px rgba(37,99,201,.16)}
 .see{margin-top:10px;font-size:14px}
 .see b{font-weight:600}
@@ -113,7 +117,8 @@ ol.book li{counter-increment:b;background:var(--card);border:1px solid var(--lin
   border-radius:6px;padding:12px 14px 12px 46px;margin-bottom:8px;position:relative;font-size:14.5px}
 ol.book li::before{content:counter(b,decimal-leading-zero);position:absolute;left:12px;top:12px;
   font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--slate)}
-ol.book li.urgent{border-left:4px solid var(--buoy)}
+ol.book li.urgent{border-left:4px solid var(--buoy);padding-top:32px}
+ol.book li.urgent::before{top:32px}          /* keep the counter beside the first text line */
 ol.book li.urgent::after{content:"BOOK FIRST";position:absolute;right:12px;top:12px;
   font-size:10px;letter-spacing:.12em;color:var(--buoy);font-weight:700}
 .foot{margin-top:30px;color:var(--slate);font-size:12.5px}
@@ -133,7 +138,6 @@ ol.book li.urgent::after{content:"BOOK FIRST";position:absolute;right:12px;top:1
 <span class="stat"><b>4</b> ferries</span>
 <span class="stat"><b>~£336</b> pp fixed</span>
 </div>
-<div class="live" id="live"></div>
 </div>
 </header>
 <div class="wrap">
@@ -153,6 +157,7 @@ ol.book li.urgent::after{content:"BOOK FIRST";position:absolute;right:12px;top:1
 
 <section>
 <h2>Stages</h2>
+<div class="live" id="live"></div>
 <div id="days"></div>
 </section>
 
@@ -369,6 +374,18 @@ function wxForecast(el,day,d,i){
     (WXCODE[d.weather_code[i]]||'')+'. Live forecast (Open-Meteo) at the mid-route point, '+
     'refreshed every time this page loads. Wind '+compass(dir)+' '+kmh+' km/h: a '+w.word+' on this stage.');
 }
+/* Effort out of 10. Flat-equivalent distance — 100 m of climbing costs about the
+   same as 10 km of flat riding — scaled so a 250 km-equivalent day reads 10.
+   On these loaded days that puts the Monts d'Arree stage at 9 and the rest at 6-7. */
+function effortScore(day){
+  const km=parseFloat(day.km), up=parseFloat(day.up.replace(/[^0-9.]/g,''));
+  return Math.max(1,Math.min(10,Math.round((km+up/10)/25)));
+}
+function effortChip(day){
+  const e=effortScore(day);
+  return '<span class="chip '+(e<=5?'e-low':(e<=7?'e-mid':'e-high'))+
+    '" title="Effort '+e+' of 10 — '+day.km+' with '+day.up+' of climbing">Effort '+e+'/10</span>';
+}
 const host=document.getElementById('days');
 DAYS.forEach(day=>{
   if(day.island){
@@ -392,7 +409,7 @@ DAYS.forEach(day=>{
    '<div class="eyebrow">'+day.n+'</div><h3>'+day.t+'</h3>'+
    '<div class="sub mono">'+day.km+' · '+day.up+'</div></div>'+
    '<div class="wx" id="wx-'+day.id+'"></div></div>'+
-   '<div class="chips">'+day.chips.map((c,i)=>'<span class="chip'+((c.includes('20:45')||c.includes('Queen'))?' hot':'')+'">'+c+'</span>').join('')+'</div>'+
+   '<div class="chips">'+effortChip(day)+day.chips.map((c,i)=>'<span class="chip'+((c.includes('20:45')||c.includes('Queen'))?' hot':'')+'">'+c+'</span>').join('')+'</div>'+
    '<div class="mapbox"><div class="lmap" id="map-'+day.id+'"></div></div>'+profile(r.pts,day.km,day.id)+
    '<ol class="tl" id="tl-'+day.id+'">'+day.times.map(t=>'<li><span class="tlt mono">'+t[0]+
      '</span><span>'+t[1]+'</span></li>').join('')+'</ol>'+
@@ -539,18 +556,23 @@ const live=document.getElementById('live');
 const tag=(cls,label,detail)=>{
   live.innerHTML='<span class="tag '+cls+'">'+label+'</span>'+
     (detail?'<span class="livedet">'+detail+'</span>':'')+
-    '<button class="livebtn" id="livestop">Stop</button>';
+    '<button class="livebtn ghost" id="livestop">Stop</button>';
   document.getElementById('livestop').onclick=stopTracking;
 };
-let watch=null;
+let watch=null, shown=null;
 function onFix(p){
   const pos=[p.coords.latitude,p.coords.longitude];
   const hit=pickStage(pos);
   document.querySelectorAll('.card.here').forEach(c=>c.classList.remove('here'));
   if(!hit){tag('off','Off route','No stage line within 2 km');return;}
   const {day,fix}=hit;
-  const card=document.getElementById('wx-'+day.id);
-  if(card&&card.closest('.card')) card.closest('.card').classList.add('here');
+  const anchor=document.getElementById('wx-'+day.id), card=anchor&&anchor.closest('.card');
+  if(card){
+    card.classList.add('here');
+    if(shown!==day.id) card.scrollIntoView({block:'center',
+      behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+  }
+  shown=day.id;                            /* only scroll when the stage first resolves */
   markMap(day.id,pos); markProfile(day.id,fix.i);
   const c=cum(day.id), total=parseFloat(day.km);
   const done=c[fix.i]*(total/c[c.length-1]);           // scale to the published distance
@@ -569,15 +591,14 @@ function onFix(p){
 }
 function stopTracking(){
   if(watch!=null) navigator.geolocation.clearWatch(watch);
-  watch=null;
+  watch=null; shown=null;
   document.querySelectorAll('.card.here').forEach(c=>c.classList.remove('here'));
   document.querySelectorAll('.mepos').forEach(g=>g.remove());
   for(const k in MEMARK){MAPS[k]&&MEMARK[k]&&MAPS[k].removeLayer(MEMARK[k]);delete MEMARK[k];}
   offer();
 }
 function offer(){
-  live.innerHTML='<button class="livebtn" id="livego">Show where I am</button>'+
-    '<span class="livedet">Stays on your phone — nothing is sent anywhere.</span>';
+  live.innerHTML='<button class="livebtn" id="livego">Show where I am</button>';
   document.getElementById('livego').onclick=startTracking;
 }
 function startTracking(){
