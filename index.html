@@ -61,17 +61,26 @@ ol.tl li.done::before{background:var(--slate);border-color:var(--slate)}
 ol.tl li.next::before{background:var(--live);border-color:var(--live);
   box-shadow:0 0 0 3px rgba(37,99,201,.20)}
 ol.tl li.next{font-weight:600}
-.live{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 14px}
+.live{display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+  background:var(--card);border:1px solid var(--line);border-left:4px solid var(--ink);
+  border-radius:6px;padding:11px 16px;margin:0 0 14px}
 .live:empty{display:none}
-.livebtn{background:var(--ink);border:1px solid var(--ink);color:#F4F6F2;
-  border-radius:4px;padding:7px 12px;font:600 13px/1.3 inherit;font-family:inherit;cursor:pointer}
-.livebtn.ghost{background:none;color:var(--ink)}
-.livebtn:hover{opacity:.85}
-.tag{border-radius:4px;padding:6px 10px;font-size:13px;font-weight:700}
+.live.ok,.live.ahead{border-left-color:var(--starboard)}
+.live.behind{border-left-color:var(--buoy)}
+.live.off{border-left-color:var(--slate)}
+.livebtn{display:inline-flex;align-items:center;gap:6px;background:var(--ink);
+  border:1px solid var(--ink);color:#F4F6F2;border-radius:4px;padding:7px 12px;
+  font:600 13px/1.3 inherit;font-family:inherit;cursor:pointer}
+.livebtn.ghost{background:none;color:var(--slate);border-color:var(--line);margin-left:auto}
+.livebtn.ghost:hover{color:var(--ink);border-color:var(--slate)}
+.livebtn:hover{opacity:.9}
+.livebtn .pin{width:14px;height:14px}
+.tag{border-radius:4px;padding:6px 10px;font-size:13px;font-weight:700;white-space:nowrap}
 .tag.ok,.tag.ahead{background:var(--starboard);color:#fff}
 .tag.behind{background:var(--buoy);color:#fff}
 .tag.off{background:var(--chip);color:var(--ink)}
-.livedet{font-size:13px;color:var(--slate)}
+.livedet{font-size:13.5px;color:var(--slate)}
+@media (max-width:430px){.livehint{display:none}}   /* keep the idle bar to one row */
 .chip.e-low{background:var(--starboard);color:#fff}
 .chip.e-mid{background:var(--ochre);color:#fff}
 .chip.e-high{background:var(--buoy);color:#fff}
@@ -553,7 +562,12 @@ function markTimeline(day,mins){
   });
 }
 const live=document.getElementById('live');
+const PIN='<svg class="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" '+
+ 'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+
+ '<path d="M12 21.5s6.8-6.3 6.8-11a6.8 6.8 0 1 0-13.6 0c0 4.7 6.8 11 6.8 11Z"/>'+
+ '<circle cx="12" cy="10.4" r="2.5"/></svg>';
 const tag=(cls,label,detail)=>{
+  live.className='live '+cls;
   live.innerHTML='<span class="tag '+cls+'">'+label+'</span>'+
     (detail?'<span class="livedet">'+detail+'</span>':'')+
     '<button class="livebtn ghost" id="livestop">Stop</button>';
@@ -598,15 +612,19 @@ function stopTracking(){
   offer();
 }
 function offer(){
-  live.innerHTML='<button class="livebtn" id="livego">Show where I am</button>';
+  live.className='live';
+  live.innerHTML='<button class="livebtn" id="livego">'+PIN+'Show where I am</button>'+
+    '<span class="livedet livehint">Put yourself on today&rsquo;s stage and see the pace</span>';
   document.getElementById('livego').onclick=startTracking;
 }
 function startTracking(){
+  live.className='live off';
   live.innerHTML='<span class="tag off">Locating…</span>';
   watch=navigator.geolocation.watchPosition(onFix,err=>{
+    live.className='live off';
     live.innerHTML='<span class="tag off">'+
       (err.code===1?'Location permission denied':'Location unavailable')+'</span>'+
-      '<button class="livebtn" id="livego">Try again</button>';
+      '<button class="livebtn ghost" id="livego">Try again</button>';
     document.getElementById('livego').onclick=startTracking;
   },{enableHighAccuracy:true,maximumAge:15000,timeout:20000});
 }
