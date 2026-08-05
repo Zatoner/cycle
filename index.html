@@ -28,10 +28,20 @@ h1{font-family:"Avenir Next Condensed","Arial Narrow","Helvetica Neue",sans-seri
   font-weight:700;font-size:34px;line-height:1.05;text-transform:uppercase;
   letter-spacing:.02em;margin:6px 0 4px}
 header p{color:#C6D0DC;font-size:14px}
-.statbar{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
-.stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+.statbar{display:flex;gap:8px;margin-top:16px}
+.stat{flex:0 0 auto;white-space:nowrap;background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.18);
   border-radius:4px;padding:6px 10px;font-size:13px;color:#F4F6F2}
+/* glanceable rows stay on one line and scroll sideways rather than stacking */
+.scroller{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;
+  scrollbar-width:none;-ms-overflow-style:none;overscroll-behavior-x:contain}
+.scroller::-webkit-scrollbar{display:none}
+.scroller.over{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent);
+  mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent)}
 .stat b{font-weight:600}
+.stat[hidden]{display:none}
+.stat.count{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.34)}
+.stat.count b{font-variant-numeric:tabular-nums}   /* digits must not jiggle the row */
 section{margin-top:34px}
 h2{font-family:"Avenir Next Condensed","Arial Narrow","Helvetica Neue",sans-serif;
   font-size:20px;text-transform:uppercase;letter-spacing:.06em;font-weight:700;
@@ -40,8 +50,9 @@ h2{font-family:"Avenir Next Condensed","Arial Narrow","Helvetica Neue",sans-seri
   padding:16px;margin-bottom:14px}
 .card h3{font-size:17px;font-weight:650;margin:2px 0 2px}
 .card .sub{color:var(--slate);font-size:13px}
-.chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 4px}
-.chip{background:var(--chip);border-radius:3px;padding:3px 8px;font-size:12.5px}
+.chips{display:flex;gap:6px;margin:10px 0 4px}
+.chip{flex:0 0 auto;white-space:nowrap;background:var(--chip);border-radius:3px;
+  padding:3px 8px;font-size:12.5px}
 .chip.hot{background:var(--buoy);color:#fff}
 svg.prof,.mapbox>svg{display:block;width:100%;height:auto}
 svg.prof{margin-top:12px;aspect-ratio:600/110}
@@ -63,9 +74,10 @@ ol.tl li.done::before{background:var(--slate);border-color:var(--slate)}
 ol.tl li.next::before{background:var(--live);border-color:var(--live);
   box-shadow:0 0 0 3px rgba(37,99,201,.20)}
 ol.tl li.next{font-weight:600}
-.live{display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+.live{display:flex;gap:10px;align-items:center;flex-wrap:nowrap;overflow:hidden;
   background:var(--card);border:1px solid var(--line);border-left:4px solid var(--ink);
   border-radius:6px;padding:11px 16px;margin:0 0 14px}
+.live .tag,.live .livebtn{flex:0 0 auto}
 .live:empty{display:none}
 .live.ok,.live.ahead{border-left-color:var(--starboard)}
 .live.behind{border-left-color:var(--buoy)}
@@ -81,7 +93,8 @@ ol.tl li.next{font-weight:600}
 .tag.ok,.tag.ahead{background:var(--starboard);color:#fff}
 .tag.behind{background:var(--buoy);color:#fff}
 .tag.off{background:var(--chip);color:var(--ink)}
-.livedet{font-size:13.5px;color:var(--slate)}
+.livedet{font-size:13.5px;color:var(--slate);flex:1 1 auto;min-width:0;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 @media (max-width:430px){.livehint{display:none}}   /* keep the idle bar to one row */
 .chip.e-low{background:var(--starboard);color:#fff}
 .chip.e-mid{background:var(--ochre);color:#fff}
@@ -125,8 +138,11 @@ table.budget tr.total td{font-weight:700;background:var(--chip)}
 .isle .wxi{margin-top:1px}
 @media (max-width:400px){
   .chead{flex-wrap:wrap}
-  .wx{width:100%;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center}
-  .wxx{margin-top:0;white-space:nowrap}
+  .wx{width:100%;display:flex;flex-wrap:nowrap;overflow-x:auto;gap:12px;align-items:center;
+    scrollbar-width:none;-ms-overflow-style:none}
+  .wx::-webkit-scrollbar{display:none}
+  .wxline,.wxx{flex:0 0 auto;white-space:nowrap}
+  .wxx{margin-top:0}
 }
 ol.book{list-style:none;counter-reset:b}
 ol.book li{counter-increment:b;background:var(--card);border:1px solid var(--line);
@@ -148,7 +164,8 @@ ol.book li.urgent::after{content:"BOOK FIRST";position:absolute;right:12px;top:1
 <div class="eyebrow">29 August — 6 September 2026 · 3 riders</div>
 <h1>Belle-Ile Loop</h1>
 <p>London · Portsmouth · St Malo · Mohon · Quiberon · Belle-Ile · Roscoff · Plymouth · London</p>
-<div class="statbar">
+<div class="statbar scroller">
+<span class="stat count" id="cdown" hidden></span>
 <span class="stat"><b>507 km</b> plotted</span>
 <span class="stat"><b>3,969 m</b> climbing</span>
 <span class="stat"><b>4</b> ferries</span>
@@ -438,7 +455,7 @@ DAYS.forEach(day=>{
    '<div class="eyebrow">'+day.n+'</div><h3>'+day.t+'</h3>'+
    '<div class="sub mono">'+day.km+' · '+day.up+'</div></div>'+
    '<div class="wx" id="wx-'+day.id+'"></div></div>'+
-   '<div class="chips">'+effortChip(day)+day.chips.map((c,i)=>'<span class="chip'+((c.includes('20:45')||c.includes('Queen'))?' hot':'')+'">'+c+'</span>').join('')+'</div>'+
+   '<div class="chips scroller">'+effortChip(day)+day.chips.map((c,i)=>'<span class="chip'+((c.includes('20:45')||c.includes('Queen'))?' hot':'')+'">'+c+'</span>').join('')+'</div>'+
    '<div class="mapbox"><div class="lmap" id="map-'+day.id+'"></div></div>'+profile(r.pts,day.km,day.id)+
    '<ol class="tl" id="tl-'+day.id+'">'+day.times.map(t=>'<li><span class="tlt mono">'+t[0]+
      '</span><span>'+t[1]+'</span></li>').join('')+sunRow(day)+'</ol>'+
@@ -448,6 +465,37 @@ DAYS.forEach(day=>{
    '</div></div>';
   host.insertAdjacentHTML('beforeend',h);
 });
+
+/* Fade the right edge of a one-line row only while there is more to scroll to,
+   so the cut-off is legible as "there is more" rather than as a clipping bug. */
+function fadeEdge(e){e.classList.toggle('over',e.scrollWidth-e.clientWidth-e.scrollLeft>1);}
+function initScrollers(){
+  document.querySelectorAll('.scroller').forEach(e=>{
+    fadeEdge(e);
+    e.addEventListener('scroll',()=>fadeEdge(e),{passive:true});
+  });
+}
+addEventListener('resize',()=>document.querySelectorAll('.scroller').forEach(fadeEdge));
+
+/* Countdown to the off — 11:15 out of Waterloo on 29 August, BST. It removes itself
+   the moment it lands, so the header carries nothing stale once the trip starts. */
+const OFF=new Date('2026-08-29T11:15:00+01:00');
+const cdown=document.getElementById('cdown');
+let cdTimer=null;
+function tick(){
+  if(!cdown) return;
+  const left=OFF-new Date();
+  if(left<=0){
+    cdown.hidden=true;
+    if(cdTimer) clearInterval(cdTimer);
+    document.querySelectorAll('.scroller').forEach(fadeEdge);
+    return;
+  }
+  const s=Math.floor(left/1000), d=Math.floor(s/86400), p=n=>String(n).padStart(2,'0');
+  cdown.innerHTML='<b class="mono">'+(d?d+'d ':'')+
+    p(Math.floor(s%86400/3600))+':'+p(Math.floor(s%3600/60))+':'+p(s%60)+'</b> to the off';
+  cdown.hidden=false;
+}
 
 const MAPS={};
 function initMaps(){
@@ -475,6 +523,8 @@ function initMaps(){
   });
 }
 initMaps();
+initScrollers();
+tick(); cdTimer=setInterval(tick,1000);
 
 const wxDays=DAYS.filter(d=>d.id&&d.date&&WXNORM[d.id]);
 wxDays.forEach(day=>{
