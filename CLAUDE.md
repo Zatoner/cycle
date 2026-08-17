@@ -12,6 +12,8 @@ updated without re-explaining the trip. Keep this file updated when facts change
   Mohon (grandparents) → Quiberon → Belle-Île (family house, 3 nights) → Quiberon → Rosporden (camp) →
   Roscoff (night) → morning ferry → Plymouth → train home.
 - **Totals:** ~519 km plotted, ~3,969 m climbing, 4 ferries, ~£336 pp fixed costs.
+  (The five plotted stages sum to 506.7 km; the ~12 km balance is extras/detours not yet itemised.
+  Site header shows ~519 to match this file.)
 
 ## Bookings (status as of 18 Aug)
 | # | Item | Details | Status |
@@ -68,9 +70,14 @@ Pending: a Petersfield day-1 GPX may replace/join day1 once finalised.
 - Features: at-a-glance table; stage cards (map, elevation profile, timeline w/ sunsets, effort ratings,
   weather badge = 10-yr average until date enters forecast window then live; wind arrow relative to course);
   "Show where I am" geolocation vs checkpoints (client-side only); offline caching (service worker);
-  editable budget with live total (in-memory only); booking checklist; **one button per stage: Download GPX**
+  countdown to departure (self-hides at zero); **one button per stage: Download GPX**
   (earlier Share/cycle.travel buttons intentionally removed — do not re-add; an "Alt route · cycle.travel"
   handoff link exists per stage per latest deployed version).
+- Removed 18 Aug (bookings settled): the editable budget table and the "To book" checklist, and
+  everything below them. The site is now header + at-a-glance + stages + the feature-legend footer.
+  Per-person cost survives only as the "~£336 pp fixed" header stat; the budget breakdown lives in
+  this file. Glanceable rows (chips, header stats, live bar, weather badge) stay on one line and
+  scroll sideways — do not reintroduce wrapping.
 - Style: no emojis on site, marine navy/fog palette, mono for times/stats, concise mobile-first.
 - Deploy: commit to main, Pages builds ~1 min; verify live page changed (CDN caches ~10 min).
 

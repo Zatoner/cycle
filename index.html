@@ -119,10 +119,6 @@ table.budget{width:100%;border-collapse:collapse;font-size:14.5px;background:var
 table.budget td{padding:9px 12px;border-bottom:1px solid var(--line)}
 table.budget tr:last-child td{border-bottom:none}
 table.budget td:last-child{text-align:right;font-family:ui-monospace,Menlo,monospace;font-size:13.5px}
-table.budget tr.total td{font-weight:700;background:var(--chip)}
-.bin{width:76px;text-align:right;font-family:ui-monospace,Menlo,monospace;font-size:13.5px;
-  border:1px solid var(--line);border-radius:3px;padding:4px 6px;background:#FBFCFA;color:var(--ink)}
-.bin:focus{outline:2px solid var(--ink);outline-offset:1px}
 .chead{display:flex;gap:12px;align-items:flex-start;justify-content:space-between}
 .cmeta{min-width:0}
 .wx{flex:0 0 auto;width:128px;border:1px solid var(--line);border-radius:4px;
@@ -144,15 +140,6 @@ table.budget tr.total td{font-weight:700;background:var(--chip)}
   .wxline,.wxx{flex:0 0 auto;white-space:nowrap}
   .wxx{margin-top:0}
 }
-ol.book{list-style:none;counter-reset:b}
-ol.book li{counter-increment:b;background:var(--card);border:1px solid var(--line);
-  border-radius:6px;padding:12px 14px 12px 46px;margin-bottom:8px;position:relative;font-size:14.5px}
-ol.book li::before{content:counter(b,decimal-leading-zero);position:absolute;left:12px;top:12px;
-  font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--slate)}
-ol.book li.urgent{border-left:4px solid var(--buoy);padding-top:32px}
-ol.book li.urgent::before{top:32px}          /* keep the counter beside the first text line */
-ol.book li.urgent::after{content:"BOOK FIRST";position:absolute;right:12px;top:12px;
-  font-size:10px;letter-spacing:.12em;color:var(--buoy);font-weight:700}
 .foot{margin-top:30px;color:var(--slate);font-size:12.5px}
 @media (prefers-reduced-motion:no-preference){
   .dl{transition:opacity .15s} .dl:active{opacity:.75}}
@@ -166,7 +153,7 @@ ol.book li.urgent::after{content:"BOOK FIRST";position:absolute;right:12px;top:1
 <p>London · Portsmouth · St Malo · Mohon · Quiberon · Belle-Ile · Roscoff · Plymouth · London</p>
 <div class="statbar scroller">
 <span class="stat count" id="cdown" hidden></span>
-<span class="stat"><b>507 km</b> plotted</span>
+<span class="stat"><b>~519 km</b> plotted</span>
 <span class="stat"><b>3,969 m</b> climbing</span>
 <span class="stat"><b>4</b> ferries</span>
 <span class="stat"><b>~£336</b> pp fixed</span>
@@ -192,41 +179,6 @@ ol.book li.urgent::after{content:"BOOK FIRST";position:absolute;right:12px;top:1
 <h2>Stages</h2>
 <div class="live" id="live"></div>
 <div id="days"></div>
-</section>
-
-<section>
-<h2>Budget · per person</h2>
-<table class="budget" id="btable">
-<tr><td>Channel ferries + shared cabin (£588 ÷ 3)</td><td><input class="bin" type="number" value="196" inputmode="decimal"></td></tr>
-<tr><td>Belle-Ile ferry, return incl. bike</td><td><input class="bin" type="number" value="41" inputmode="decimal"></td></tr>
-<tr><td>Train: Plymouth–London (GroupSave)</td><td><input class="bin" type="number" value="49" inputmode="decimal"></td></tr>
-<tr><td>Train: Waterloo–Guildford</td><td><input class="bin" type="number" value="12" inputmode="decimal"></td></tr>
-<tr><td>Campsite, Rosporden (Fri)</td><td><input class="bin" type="number" value="13" inputmode="decimal"></td></tr>
-<tr><td>Room share, Roscoff (Sat)</td><td><input class="bin" type="number" value="25" inputmode="decimal"></td></tr>
-<tr class="total"><td>Fixed costs, per person</td><td>£<span id="btotal">336</span></td></tr>
-</table>
-<p class="foot" style="margin-top:8px">Tap any figure to adjust — the total updates live. Edits are for on-the-spot what-ifs and reset on reload.</p>
-<script>
-(function(){
-  const t=document.getElementById('btable');
-  const out=document.getElementById('btotal');
-  const sum=()=>{let x=0;t.querySelectorAll('.bin').forEach(i=>{x+=parseFloat(i.value)||0});
-    out.textContent=Math.round(x)};
-  t.addEventListener('input',sum);sum();
-})();
-</script>
-</section>
-
-<section>
-<h2>To book</h2>
-<ol class="book">
-<li class="urgent">Brittany Ferries £588 — Portsmouth–St Malo 29 Aug 20:15 + Roscoff–Plymouth 6 Sep 09:45. 3 pax, 3 bikes, one 4-berth cabin. Peak Saturday; price rises with delay.</li>
-<li>Compagnie Oceane ~€47 — Quiberon–Le Palais Mon 31 evening (last boat 20:45), return Fri 4 morning. Reserve bike spots.</li>
-<li>GWR Plymouth–Paddington, Sun 6, 15:15 — 3 GroupSave singles + 3 bike reservations on the same train.</li>
-<li>Campsite near Rosporden, Fri 4.</li>
-<li>Room in Roscoff, Sat 5 — near the old port; ferry check-in is 10 min away.</li>
-<li>Confirm grandparents: Sun 30 dinner + bed, and nothing else — Mon starts from theirs.</li>
-</ol>
 </section>
 
 <p class="foot">Charts and downloads use simplified tracks (~11 m tolerance) — fine for navigation; full-resolution GPX files are in the chat. The weather badge on each stage shows a 10-year average for that date until the day comes inside the forecast window, then switches to the live forecast on every load — the arrow is wind relative to your course, so pointing up is a tailwind. &ldquo;Show where I am&rdquo; puts your position on the matching stage map and elevation curve and compares it with that day&rsquo;s checkpoints; it needs location permission, works only on the day itself, and the coordinates stay in your browser &mdash; there is no server to send them to. Open this once on wifi and it is cached for offline use: the plan, the maps you have scrolled past, and the GPX all work with no signal, and the weather falls back to the averages. &ldquo;Alt route&rdquo; hands the stage&rsquo;s start and finish to cycle.travel if you need to rebuild the day around a closure. Times assume 18 km/h loaded and generous stops. Ferry times verified Aug 2026; reconfirm at booking.</p>
