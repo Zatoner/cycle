@@ -91,7 +91,9 @@ work offline; linking to the .gpx files instead would break with no signal. Stag
 - Single self-contained `index.html`. Leaflet 1.9.4 (cdnjs) + OSM tiles; SVG chart fallback on tile error.
   CSS svg rules are scoped (`svg.prof`, `.mapbox>svg`) — do NOT add a global `svg{}` rule (breaks Leaflet overlay).
 - Features: at-a-glance table; stage cards (map, elevation profile, timeline w/ sunsets, effort ratings,
-  weather badge = 10-yr average until date enters forecast window then live; wind arrow relative to course);
+  weather badge = 10-yr average until date enters forecast window then live; wind arrow relative to
+  course — up rides with you, CONFIRMED preference 18 Aug over a north-up/map frame; alt-route link
+  re-points from the rider's live position while tracking);
   "Show where I am" geolocation vs checkpoints (client-side only); offline caching (service worker);
   countdown to departure (self-hides at zero); **one button per stage: Download GPX**
   (earlier Share/cycle.travel buttons intentionally removed — do not re-add; an "Alt route · cycle.travel"
