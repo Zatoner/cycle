@@ -11,11 +11,11 @@ updated without re-explaining the trip. Keep this file updated when facts change
 - **Shape:** London → (train) Petersfield/Guildford → ride to Portsmouth → night ferry → St Malo →
   Mohon (grandparents) → Quiberon → Belle-Île (family house, 3 nights) → Quiberon → Rosporden (camp) →
   Roscoff (night) → morning ferry → Plymouth → train home.
-- **Totals:** ~494 km plotted, 3,538 m climbing, 5 ferries, ~£336 pp fixed costs.
-  (Five plotted stages now sum to 481.6 km; the ~12 km balance is extras/detours not yet itemised,
+- **Totals:** ~506 km plotted, 3,717 m climbing, 5 ferries, ~£336 pp fixed costs.
+  (Five plotted stages now sum to 494.0 km; the ~12 km balance is extras/detours not yet itemised,
   carried over from the old ~519 figure. Climbing IS an exact sum of the five stages. Ferry count
   now includes the Gosport–Portsmouth harbour crossing on stage 1 — not booked or costed, ~£2 on
-  the day. Updated 18 Aug when stage 1 moved to Petersfield: −25.1 km, −431 m.)
+  the day. Updated 18 Aug: stage 1 moved to Petersfield (−25.1 km, −431 m); stage 2 re-plotted down the Rance east bank via St-Suliac and Pont Saint-Hubert (+12.4 km, +179 m) — the Bus de Mer St Malo–Dinard ferry option (€14.10 pp with bike) was considered and rejected.)
 
 ## Bookings (status as of 18 Aug)
 | # | Item | Details | Status |
@@ -35,12 +35,16 @@ updated without re-explaining the trip. Keep this file updated when facts change
   8.5 km unpaved, old railway, compacted and level, **accepted on road bikes**; the route is
   cycle.travel's "Any" profile, so do NOT re-plot on "Paved" or it leaves the trail.
   Wickham km 28, Titchfield km 36, Lee-on-the-Solent km 45, **Stokes Bay swim** km 48,
-  **Gosport–Portsmouth harbour ferry** km 52 (every 15 min, ~£2 + bike, 4 min) → The Hard.
+  **Gosport–Portsmouth harbour ferry** km 52 (every 15 min, ~£4-5 single with bike, 4 min) → The Hard.
   Track ends at the Brittany Ferries check-in, 50.81170,-1.08667 — 15 m from the desk.
   Check-in 19:15, sail 20:15. Night aboard, 4-berth cabin.
   Bail-out: train straight to Portsmouth & Southsea, 3 km roll.
-- **Stage 2 · Sun 30 — St Malo → Mohon. 102.3 km, +535 m.** Dock 08:45, roll 09:30, Dinan coffee
-  km 26 (Rue du Jerzual), arrive ~17:30 (worst 18:30). Grandparents. Josselin castle 15 km if evening allows.
+- **Stage 2 · Sun 30 — St Malo → Mohon. 114.7 km, +714 m. FINAL (18 Aug), now the longest day.**
+  Dock 08:45, roll 09:30. Rance east bank: St-Suliac km 14 (plus beau village, ~10:30), Mont Garrot,
+  Pont Saint-Hubert crossing km ~24, Dinan coffee km 33 (~11:45, Rue du Jerzual), Médréac greenway,
+  St-Méen-le-Grand km 79 (~15:00 lunch, Louison Bobet museum), arrive ~18:00 (worst 18:45).
+  Ends Rue du Tronc, Les Écotais (grandparents' door). Josselin castle 15 km if evening allows.
+  ~30% unpaved (vélo-route greenways) — accepted, same reasoning as the Meon Valley Trail.
 - **Stage 3 · Mon 31 — Mohon → Quiberon via Carnac. 109.4 km, +708 m.** Roll 09:00-09:30.
   Auray/Saint-Goustan crêpe km 71 (~13:30), Carnac Ménec alignments km 86 (~15:30, route passes 100 m away),
   Côte Sauvage optional down the peninsula. Quiberon ~17:30-18:30. **Boat 20:45** (big buffer). 
@@ -62,7 +66,8 @@ Train out ~£12 · Rosporden camp ~£13 · Roscoff ~£25 → **fixed ≈ £336**
 ## GPX / route files (full-resolution)
 **In the repo:** day1_petersfield_portsmouth.gpx (55.5 km, +303 m, 468 pts, cycle.travel, has
 `<ele>`). Supersedes day1_guildford_portsmouth.gpx, which is retired.
-**Not yet committed** (still only in the chat): day2_stmalo_mohon.gpx (102.3, +535) ·
+**In the repo:** day2_stmalo_mohon.gpx (114.7 km, +714 m, 925 pts, has `<ele>`; simplifies to 573).
+**Not yet committed** (still only in the chat):
 day3_mohon_quiberon_carnac.gpx (109.4, +708; Carnac at track-km 188.7 of combined = day-km 86.4) ·
 day6_quiberon_rosporden.gpx (104.8, +758) · day7_rosporden_roscoff.gpx (109.6, +1,234).
 Convention: commit the full-resolution .gpx as source of truth AND bake an 11 m RDP-simplified
