@@ -48,7 +48,7 @@ h2{font-family:"Avenir Next Condensed","Arial Narrow","Helvetica Neue",sans-seri
   border-bottom:2px solid var(--ink);padding-bottom:6px;margin-bottom:14px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:6px;
   padding:16px;margin-bottom:14px}
-.card h3{font-size:17px;font-weight:650;margin:2px 0 2px}
+.card h3{font-size:17px;font-weight:650;margin:2px 0 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .card .sub{color:var(--slate);font-size:13px}
 .chips{display:flex;gap:6px;margin:10px 0 4px}
 .chip{flex:0 0 auto;white-space:nowrap;background:var(--chip);border-radius:3px;
@@ -133,7 +133,7 @@ table.budget td:first-child{white-space:nowrap;overflow:hidden;text-overflow:ell
 .isle{display:flex;gap:9px;align-items:flex-start;margin-top:10px;padding-top:9px;
   border-top:1px dashed var(--line);font-size:14px}
 .isle .wxi{margin-top:1px}
-@media (max-width:400px){
+@media (max-width:480px){
   .chead{flex-wrap:wrap}
   .wx{width:100%;display:flex;flex-wrap:nowrap;overflow-x:auto;gap:12px;align-items:center;
     scrollbar-width:none;-ms-overflow-style:none}
