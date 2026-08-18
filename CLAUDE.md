@@ -11,8 +11,8 @@ updated without re-explaining the trip. Keep this file updated when facts change
 - **Shape:** London → (train) Petersfield/Guildford → ride to Portsmouth → night ferry → St Malo →
   Mohon (grandparents) → Quiberon → Belle-Île (family house, 3 nights) → Quiberon → Rosporden (camp) →
   Roscoff (night) → morning ferry → Plymouth → train home.
-- **Totals:** ~506 km plotted, 3,717 m climbing, 5 ferries, ~£336 pp fixed costs.
-  (Five plotted stages now sum to 494.0 km; the ~12 km balance is extras/detours not yet itemised,
+- **Totals:** ~506 km plotted, 3,794 m climbing, 5 ferries, ~£336 pp fixed costs.
+  (Five plotted stages now sum to 493.5 km; the ~12 km balance is extras/detours not yet itemised,
   carried over from the old ~519 figure. Climbing IS an exact sum of the five stages. Ferry count
   now includes the Gosport–Portsmouth harbour crossing on stage 1 — not booked or costed, ~£2 on
   the day. Updated 18 Aug: stage 1 moved to Petersfield (−25.1 km, −431 m); stage 2 re-plotted down the Rance east bank via St-Suliac and Pont Saint-Hubert (+12.4 km, +179 m) — the Bus de Mer St Malo–Dinard ferry option (€14.10 pp with bike) was considered and rejected.)
@@ -45,9 +45,10 @@ updated without re-explaining the trip. Keep this file updated when facts change
   St-Méen-le-Grand km 79 (~15:00 lunch, Louison Bobet museum), arrive ~18:00 (worst 18:45).
   Ends Rue du Tronc, Les Écotais (grandparents' door). Josselin castle 15 km if evening allows.
   ~30% unpaved (vélo-route greenways) — accepted, same reasoning as the Meon Valley Trail.
-- **Stage 3 · Mon 31 — Mohon → Quiberon via Carnac. 109.4 km, +708 m.** Roll 09:00-09:30.
-  Auray/Saint-Goustan crêpe km 71 (~13:30), Carnac Ménec alignments km 86 (~15:30, route passes 100 m away),
-  Côte Sauvage optional down the peninsula. Quiberon ~17:30-18:30. **Boat 20:45** (big buffer). 
+- **Stage 3 · Mon 31 — Mohon → Quiberon via Carnac. 108.9 km, +785 m. FINAL (18 Aug).**
+  Roll 09:00 from the door. Via Locminé, then Auray added as a via-point: Saint-Goustan crêpe
+  km 64 (~13:30), Carnac Ménec alignments km 83 (~15:30, route passes 100 m away), Côte Sauvage
+  optional. Quiberon Port Maria ~17:30 (worst 18:30). **Boat 20:45** (big buffer). 
 - **Tue 1 – Thu 3 — Belle-Île.** Pointe des Poulains, Côte Sauvage road, Port Donnant (swim, sea ~18°C),
   Le Palais aperitif. Island laps 45-85 km optional. Thursday evening swim recommended (early Friday start).
 - **Stage 4 · Fri 4 — Quiberon → Rosporden. 104.8 km, +758 m.** Boat 09:45→10:35, roll ~10:50.
@@ -68,7 +69,7 @@ Train out ~£12 · Rosporden camp ~£13 · Roscoff ~£25 → **fixed ≈ £336**
 `<ele>`). Supersedes day1_guildford_portsmouth.gpx, which is retired.
 **In the repo:** day2_stmalo_mohon.gpx (114.7 km, +714 m, 925 pts, has `<ele>`; simplifies to 573).
 **Not yet committed** (still only in the chat):
-day3_mohon_quiberon_carnac.gpx (109.4, +708; Carnac at track-km 188.7 of combined = day-km 86.4) ·
+day3_mohon_quiberon_carnac.gpx now in repo (108.9 km, +785 m, 927 pts; Carnac day-km 83) ·
 day6_quiberon_rosporden.gpx (104.8, +758) · day7_rosporden_roscoff.gpx (109.6, +1,234).
 Convention: commit the full-resolution .gpx as source of truth AND bake an 11 m RDP-simplified
 copy into index.html as a JSON polyline. Downloads are generated from the baked copy, so they
